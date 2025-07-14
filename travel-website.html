@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlueWave Travel - Discover Your Next Adventure</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-plane"></i>
+                <span>BlueWave Travel</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#destinations" class="nav-link">Destinations</a></li>
+                <li><a href="#packages" class="nav-link">Packages</a></li>
+                <li><a href="#hotels" class="nav-link">Hotels</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#" class="nav-link login-btn" onclick="openLoginModal()">Login</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Discover Your Next Adventure</h1>
+            <p>Explore breathtaking destinations around the world with BlueWave Travel</p>
+            
+            <!-- Search Form -->
+            <div class="search-container">
+                <div class="search-tabs">
+                    <button class="tab-btn active" onclick="switchTab('flights')">
+                        <i class="fas fa-plane"></i> Flights
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('hotels')">
+                        <i class="fas fa-bed"></i> Hotels
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('packages')">
+                        <i class="fas fa-suitcase"></i> Packages
+                    </button>
+                </div>
+                
+                <div class="search-form" id="flights-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>From</label>
+                            <input type="text" placeholder="Departure city" id="departure">
+                        </div>
+                        <div class="form-group">
+                            <label>To</label>
+                            <input type="text" placeholder="Destination city" id="destination">
+                        </div>
+                        <div class="form-group">
+                            <label>Departure</label>
+                            <input type="date" id="departure-date">
+                        </div>
+                        <div class="form-group">
+                            <label>Return</label>
+                            <input type="date" id="return-date">
+                        </div>
+                        <div class="form-group">
+                            <label>Passengers</label>
+                            <select id="passengers">
+                                <option value="1">1 Passenger</option>
+                                <option value="2">2 Passengers</option>
+                                <option value="3">3 Passengers</option>
+                                <option value="4">4+ Passengers</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="search-btn" onclick="searchFlights()">
+                        <i class="fas fa-search"></i> Search Flights
+                    </button>
+                </div>
+                
+                <div class="search-form" id="hotels-form" style="display: none;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Destination</label>
+                            <input type="text" placeholder="Where are you going?" id="hotel-destination">
+                        </div>
+                        <div class="form-group">
+                            <label>Check-in</label>
+                            <input type="date" id="checkin-date">
+                        </div>
+                        <div class="form-group">
+                            <label>Check-out</label>
+                            <input type="date" id="checkout-date">
+                        </div>
+                        <div class="form-group">
+                            <label>Guests</label>
+                            <select id="guests">
+                                <option value="1">1 Guest</option>
+                                <option value="2">2 Guests</option>
+                                <option value="3">3 Guests</option>
+                                <option value="4">4+ Guests</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="search-btn" onclick="searchHotels()">
+                        <i class="fas fa-search"></i> Search Hotels
+                    </button>
+                </div>
+                
+                <div class="search-form" id="packages-form" style="display: none;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Destination</label>
+                            <input type="text" placeholder="Choose destination" id="package-destination">
+                        </div>
+                        <div class="form-group">
+                            <label>Duration</label>
+                            <select id="duration">
+                                <option value="3">3 Days</option>
+                                <option value="5">5 Days</option>
+                                <option value="7">7 Days</option>
+                                <option value="10">10+ Days</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Budget</label>
+                            <select id="budget">
+                                <option value="budget">Budget ($500-1000)</option>
+                                <option value="mid">Mid-range ($1000-2500)</option>
+                                <option value="luxury">Luxury ($2500+)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Travelers</label>
+                            <select id="travelers">
+                                <option value="1">1 Traveler</option>
+                                <option value="2">2 Travelers</option>
+                                <option value="3">3 Travelers</option>
+                                <option value="4">4+ Travelers</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="search-btn" onclick="searchPackages()">
+                        <i class="fas fa-search"></i> Search Packages
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Destinations -->
+    <section id="destinations" class="destinations">
+        <div class="container">
+            <h2>Popular Destinations</h2>
+            <p>Explore the world's most beautiful places</p>
+            
+            <div class="destinations-grid">
+                <div class="destination-card" onclick="viewDestination('paris')">
+                    <img src="https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=400&h=300&fit=crop" alt="Paris">
+                    <div class="card-content">
+                        <h3>Paris, France</h3>
+                        <p>The City of Love and Lights</p>
+                        <div class="price">From $899</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                </div>
+                
+                <div class="destination-card" onclick="viewDestination('tokyo')">
+                    <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=300&fit=crop" alt="Tokyo">
+                    <div class="card-content">
+                        <h3>Tokyo, Japan</h3>
+                        <p>Modern metropolis meets tradition</p>
+                        <div class="price">From $1,299</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                </div>
+                
+                <div class="destination-card" onclick="viewDestination('bali')">
+                    <img src="https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=400&h=300&fit=crop" alt="Bali">
+                    <div class="card-content">
+                        <h3>Bali, Indonesia</h3>
+                        <p>Tropical paradise and culture</p>
+                        <div class="price">From $699</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                </div>
+                
+                <div class="destination-card" onclick="viewDestination('new-york')">
+                    <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=400&h=300&fit=crop" alt="New York">
+                    <div class="card-content">
+                        <h3>New York, USA</h3>
+                        <p>The city that never sleeps</p>
+                        <div class="price">From $799</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                </div>
+                
+                <div class="destination-card" onclick="viewDestination('santorini')">
+                    <img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400&h=300&fit=crop" alt="Santorini">
+                    <div class="card-content">
+                        <h3>Santorini, Greece</h3>
+                        <p>White cliffs and blue seas</p>
+                        <div class="price">From $1,099</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                </div>
+                
+                <div class="destination-card" onclick="viewDestination('dubai')">
+                    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&h=300&fit=crop" alt="Dubai">
+                    <div class="card-content">
+                        <h3>Dubai, UAE</h3>
+                        <p>Luxury and modern architecture</p>
+                        <div class="price">From $999</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Travel Packages -->
+    <section id="packages" class="packages">
+        <div class="container">
+            <h2>Travel Packages</h2>
+            <p>Curated experiences for unforgettable journeys</p>
+            
+            <div class="packages-grid">
+                <div class="package-card">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=250&fit=crop" alt="European Tour">
+                    <div class="package-content">
+                        <h3>European Grand Tour</h3>
+                        <div class="package-details">
+                            <span><i class="fas fa-calendar"></i> 14 Days</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 7 Cities</span>
+                            <span><i class="fas fa-star"></i> 4.8/5</span>
+                        </div>
+                        <p>Visit Paris, Rome, Barcelona, Amsterdam and more in this comprehensive European adventure.</p>
+                        <div class="package-price">
+                            <span class="old-price">$3,499</span>
+                            <span class="new-price">$2,999</span>
+                        </div>
+                        <button class="book-package-btn" onclick="bookPackage('european-tour')">Book Package</button>
+                    </div>
+                </div>
+                
+                <div class="package-card">
+                    <img src="https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?w=400&h=250&fit=crop" alt="Asian Adventure">
+                    <div class="package-content">
+                        <h3>Asian Adventure</h3>
+                        <div class="package-details">
+                            <span><i class="fas fa-calendar"></i> 10 Days</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 4 Countries</span>
+                            <span><i class="fas fa-star"></i> 4.9/5</span>
+                        </div>
+                        <p>Explore Japan, Thailand, Singapore, and Malaysia in this exciting Asian journey.</p>
+                        <div class="package-price">
+                            <span class="old-price">$2,799</span>
+                            <span class="new-price">$2,399</span>
+                        </div>
+                        <button class="book-package-btn" onclick="bookPackage('asian-adventure')">Book Package</button>
+                    </div>
+                </div>
+                
+                <div class="package-card">
+                    <img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=400&h=250&fit=crop" alt="Tropical Paradise">
+                    <div class="package-content">
+                        <h3>Tropical Paradise</h3>
+                        <div class="package-details">
+                            <span><i class="fas fa-calendar"></i> 7 Days</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 3 Islands</span>
+                            <span><i class="fas fa-star"></i> 4.7/5</span>
+                        </div>
+                        <p>Relax in Maldives, Bali, and Fiji with luxury resorts and pristine beaches.</p>
+                        <div class="package-price">
+                            <span class="old-price">$2,199</span>
+                            <span class="new-price">$1,899</span>
+                        </div>
+                        <button class="book-package-btn" onclick="bookPackage('tropical-paradise')">Book Package</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hotels Section -->
+    <section id="hotels" class="hotels">
+        <div class="container">
+            <h2>Featured Hotels</h2>
+            <p>Stay in comfort and luxury</p>
+            
+            <div class="hotels-grid">
+                <div class="hotel-card">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=250&fit=crop" alt="Luxury Resort">
+                    <div class="hotel-content">
+                        <h3>Ocean View Resort</h3>
+                        <div class="location"><i class="fas fa-map-marker-alt"></i> Maldives</div>
+                        <div class="rating">
+                            <span class="stars">★★★★★</span>
+                            <span>4.9 (324 reviews)</span>
+                        </div>
+                        <div class="amenities">
+                            <span><i class="fas fa-wifi"></i> Free WiFi</span>
+                            <span><i class="fas fa-swimming-pool"></i> Pool</span>
+                            <span><i class="fas fa-utensils"></i> Restaurant</span>
+                        </div>
+                        <div class="hotel-price">
+                            <span class="price">$299/night</span>
+                            <button class="book-hotel-btn" onclick="bookHotel('ocean-view-resort')">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hotel-card">
+                    <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&h=250&fit=crop" alt="City Hotel">
+                    <div class="hotel-content">
+                        <h3>Grand City Hotel</h3>
+                        <div class="location"><i class="fas fa-map-marker-alt"></i> Paris, France</div>
+                        <div class="rating">
+                            <span class="stars">★★★★☆</span>
+                            <span>4.6 (189 reviews)</span>
+                        </div>
+                        <div class="amenities">
+                            <span><i class="fas fa-wifi"></i> Free WiFi</span>
+                            <span><i class="fas fa-dumbbell"></i> Gym</span>
+                            <span><i class="fas fa-car"></i> Parking</span>
+                        </div>
+                        <div class="hotel-price">
+                            <span class="price">$159/night</span>
+                            <button class="book-hotel-btn" onclick="bookHotel('grand-city-hotel')">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hotel-card">
+                    <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&h=250&fit=crop" alt="Boutique Hotel">
+                    <div class="hotel-content">
+                        <h3>Boutique Zen Hotel</h3>
+                        <div class="location"><i class="fas fa-map-marker-alt"></i> Tokyo, Japan</div>
+                        <div class="rating">
+                            <span class="stars">★★★★★</span>
+                            <span>4.8 (267 reviews)</span>
+                        </div>
+                        <div class="amenities">
+                            <span><i class="fas fa-wifi"></i> Free WiFi</span>
+                            <span><i class="fas fa-spa"></i> Spa</span>
+                            <span><i class="fas fa-concierge-bell"></i> Concierge</span>
+                        </div>
+                        <div class="hotel-price">
+                            <span class="price">$189/night</span>
+                            <button class="book-hotel-btn" onclick="bookHotel('boutique-zen-hotel')">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Get in Touch</h2>
+            <p>Have questions? We're here to help!</p>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@bluewavetravel.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Address</h4>
+                            <p>123 Travel Street, Adventure City, AC 12345</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="contact-form" onsubmit="submitContact(event)">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>BlueWave Travel</h3>
+                    <p>Your trusted partner for unforgettable journeys around the world.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#destinations">Destinations</a></li>
+                        <li><a href="#packages">Packages</a></li>
+                        <li><a href="#hotels">Hotels</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Flight Booking</a></li>
+                        <li><a href="#">Hotel Reservation</a></li>
+                        <li><a href="#">Travel Insurance</a></li>
+                        <li><a href="#">Car Rental</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BlueWave Travel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoginModal()">&times;</span>
+            <h2>Login to Your Account</h2>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="login-submit-btn">Login</button>
+            </form>
+            <p>Don't have an account? <a href="#" onclick="switchToSignup()">Sign up here</a></p>
+        </div>
+    </div>
+
+    <!-- Results Modal -->
+    <div id="resultsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeResultsModal()">&times;</span>
+            <h2 id="resultsTitle">Search Results</h2>
+            <div id="resultsContent"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
